@@ -1,0 +1,11 @@
+[Unit]
+Description=Powermon
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/powermon
+ExecStart=/opt/powermon/powermon.sh
+
+[Install]
+WantedBy=network-online.target
