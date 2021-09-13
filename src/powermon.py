@@ -118,6 +118,7 @@ if __name__ == '__main__':
     argumentCount = len(sys.argv)
 
     if argumentCount != 5:
+        
         log("Usage: python3 " + sys.argv[0] + " <URL> <CHECK_INTERVAL_MS> <RUNTIME_MS> <SHUTDOWN_SCRIPT>");
         exit(1)
 
