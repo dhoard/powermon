@@ -20,7 +20,7 @@ HEADERS = {
 def debug(message):
 
     unused = 0
-    #print(str(datetime.datetime.fromtimestamp(time.time())) + " DEBUG >> " + message, flush = True)
+    log("DEBUG >> " + message)
 
 # Log
 def log(message):
@@ -55,9 +55,11 @@ def main(url, checkIntervalMs, runtimeMs, shutdownScript):
             debug("currentStatus = [" + currentStatus + "]")
 
             if statusCode != 200:
+
                 currentStatus = POWER_FAILURE
 
             if currentStatus != POWER_UP and currentStatus != POWER_DOWN:
+
                 currentStatus = POWER_FAILURE
 
         except Exception as e:
@@ -84,6 +86,7 @@ def main(url, checkIntervalMs, runtimeMs, shutdownScript):
         if currentStatus == POWER_UP:
 
             if statusChange == True and previousStatus == POWER_FAILURE:
+
                 log("shutdown canceled")
 
             shutdownAtTimeMs = (time.time() * 1000.0) + runtimeMs
@@ -105,7 +108,9 @@ def main(url, checkIntervalMs, runtimeMs, shutdownScript):
 
     result = subprocess.run([BASH, shutdownScript], stdout = subprocess.PIPE)
     buffer = result.stdout.splitlines()
+
     for i in buffer:
+
         log(i.decode("utf-8"))
 
 if __name__ == '__main__':
