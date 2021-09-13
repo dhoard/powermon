@@ -20,7 +20,7 @@ HEADERS = {
 def debug(message):
 
     unused = 0
-    log("DEBUG >> " + message)
+    #log("DEBUG >> " + message)
 
 # Log
 def log(message):
