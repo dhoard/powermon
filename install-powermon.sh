@@ -75,9 +75,15 @@ echo "copying src/powermon.py to ${POWERMON_DIRECTORY}/powermon.py"
 \cp src/powermon.py "${POWERMON_DIRECTORY}"
 chmod ugo-x "${POWERMON_DIRECTORY}/powermon.py"
 
-echo "copying src/powermon.shutdown.sh to ${POWERMON_D_DIRECTORY}/powermon.shutdown.sh"
-\cp src/powermon.shutdown.sh "${POWERMON_D_DIRECTORY}"
-chmod u+x "${POWERMON_D_DIRECTORY}/powermon.shutdown.sh"
+echo "checking for ${POWERMON_D_DIRECTORY}/powermon.shutdown.sh"
+if [ -f  "${POWERMON_D_DIRECTORY}/powermon.shutdown.sh" ]
+then
+  echo "${POWERMON_D_DIRECTORY}/powermon.shutdown.sh exists"
+else
+  echo "copying src/powermon.shutdown.sh to ${POWERMON_D_DIRECTORY}/powermon.shutdown.sh"
+  \cp src/powermon.shutdown.sh "${POWERMON_D_DIRECTORY}"
+  chmod u+x "${POWERMON_D_DIRECTORY}/powermon.shutdown.sh"
+fi
 
 echo "copying src/powermon.service to /etc/systemd/system/powermon.service"
 \cp src/powermon.service /etc/systemd/system/
