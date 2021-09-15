@@ -1,3 +1,4 @@
+import os
 import sys
 import requests
 import time
@@ -109,22 +110,34 @@ def main(url, checkIntervalMs, runtimeMs, shutdownScript):
     result = subprocess.run([BASH, shutdownScript], stdout = subprocess.PIPE)
     buffer = result.stdout.splitlines()
 
-    for i in buffer:
+    for line in buffer:
 
-        log(i.decode("utf-8"))
+        log(line.decode("utf-8"))
 
 if __name__ == '__main__':
 
-    argumentCount = len(sys.argv)
+    try:
 
-    if argumentCount != 5:
-        
-        log("Usage: python3 " + sys.argv[0] + " <URL> <CHECK_INTERVAL_MS> <RUNTIME_MS> <SHUTDOWN_SCRIPT>");
-        exit(1)
+        argumentCount = len(sys.argv)
 
-    url = sys.argv[1]
-    checkIntervalMs = int(sys.argv[2])
-    runtimeMs = int(sys.argv[3])
-    shutdownScript = sys.argv[4]
+        if argumentCount != 5:
 
-    main(url, checkIntervalMs, runtimeMs, shutdownScript)
+            log("Usage: python3 " + sys.argv[0] + " <URL> <CHECK_INTERVAL_MS> <RUNTIME_MS> <SHUTDOWN_SCRIPT>");
+            exit(1)
+
+        url = sys.argv[1]
+        checkIntervalMs = int(sys.argv[2])
+        runtimeMs = int(sys.argv[3])
+        shutdownScript = sys.argv[4]
+
+        main(url, checkIntervalMs, runtimeMs, shutdownScript)
+
+    except KeyboardInterrupt:
+
+        try:
+
+            sys.exit(0)
+
+        except:
+
+            os._exit(0)
